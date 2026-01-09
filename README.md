@@ -52,9 +52,7 @@ toyking-backend/
 ├── processing/
 │   └── pipeline.py
 ├── templates/
-│   └── index.html      # upload page
-├── uploads/
-├── outputs/
+│   └── index.html
 ├── requirements.txt
 └── README.md
 
