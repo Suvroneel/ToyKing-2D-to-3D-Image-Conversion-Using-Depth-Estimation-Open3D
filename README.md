@@ -48,14 +48,16 @@ The system is intentionally **UI-agnostic**, allowing any HTTP client to consume
 ```
 
 toyking-backend/
-├── app.py                  # Flask application & API routes
+├── app.py
 ├── processing/
-│   ├── **init**.py
-│   └── pipeline.py         # Image → depth / pseudo-3D logic
-├── uploads/                # Temporary uploaded images
-├── outputs/                # Generated previews
+│   └── pipeline.py
+├── templates/
+│   └── index.html      # upload page
+├── uploads/
+├── outputs/
 ├── requirements.txt
 └── README.md
+
 
 ````
 
