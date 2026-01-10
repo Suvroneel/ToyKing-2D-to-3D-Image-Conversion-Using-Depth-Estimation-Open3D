@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToyKing — Turn Images into Depth</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(
+                rgba(0, 0, 0, 0.65),
+                rgba(0, 0, 0, 0.65)
+            ),
+            url("/static/images/background.jpg") no-repeat center center / cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .card {
+            background: rgba(20, 20, 20, 0.85);
+            border-radius: 16px;
+            padding: 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #cccccc;
+            margin-bottom: 28px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 0 auto 20px;
+            color: #ffffff;
+        }
+
+        button {
+            padding: 12px 22px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .primary-btn {
+            background: #ff5f5f;
+            color: #ffffff;
+        }
+
+        .primary-btn:hover {
+            background: #ff3b3b;
+        }
+
+        .output-section {
+            margin-top: 40px;
+            background: rgba(15, 15, 15, 0.9);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .output-section h2 {
+            margin-bottom: 18px;
+            font-size: 22px;
+        }
+
+        .output-images {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .output-images img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .clear-btn {
+            margin-top: 22px;
+            background: transparent;
+            color: #bbbbbb;
+            border: 1px solid #555555;
+        }
+
+        .clear-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Upload Card -->
+    <div class="card">
+        <h1>ToyKing</h1>
+        <p class="subtitle">
+            Upload any image and watch it come alive with a depth-inspired 3D look.
+        </p>
+
+        <form action="/convert" method="post" enctype="multipart/form-data" id="uploadForm">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit" class="primary-btn">
+                Create Depth Preview
+            </button>
+        </form>
+    </div>
+
+    <!-- Output Section -->
+    {% if output_image %}
+    <div class="output-section" id="outputSection">
+        <h2>Your Image, Reimagined in Depth</h2>
+
+        <div class="output-images">
+            <img src="data:image/png;base64,{{ output_image }}" alt="Depth Output">
+        </div>
+
+        <button class="clear-btn" onclick="clearPreview()">
+            Clear Preview
+        </button>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+    function clearPreview() {
+        const outputSection = document.getElementById("outputSection");
+        if (outputSection) {
+            outputSection.style.opacity = "0";
+            outputSection.style.transform = "translateY(10px)";
+            setTimeout(() => outputSection.remove(), 250);
+        }
+
+        const uploadForm = document.getElementById("uploadForm");
+        if (uploadForm) {
+            uploadForm.reset();
+        }
+    }
+</script>
+
+</body>
+</html>
